@@ -9,6 +9,11 @@ package Database;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.*;
+
+
+
 
 public class TestStudents {
   
@@ -23,6 +28,20 @@ public class TestStudents {
       int age;
       int year;
       String StudentNumber; //enrollment can be a mixture of numbers and characters
+
+      //creating a text file to store the information
+      try{
+            File studentDatabase = new File("C:\\Users\\Lihle\\Desktop\\MyCourses\\Favtutor\\7-Projects\\Student-Database\\src\\Databasedatabase.txt"); //specifies the location of the file 
+            if(studentDatabase.createNewFile())
+            {
+                System.out.println("Filename " +studentDatabase+ " is created!!");
+            }else{
+                System.out.println("File already exist");
+            }
+      }catch(Exception e)
+      {
+            System.out.println("An error occured while trying to create file");
+      }
 
       while(status == 1)
       {
@@ -76,6 +95,7 @@ public class TestStudents {
                       Student studentInfo = new Student(name, surname, age, year, StudentNumber);
                       //adding tht information to the ArrayList
                       studentsList.add(studentInfo);
+                    
                     }
                     //display the entered information
                     for(int j=0; j<studentsList.size(); j++)
@@ -87,27 +107,27 @@ public class TestStudents {
                       System.out.println();
                     }
             break;
-            // case 2:
-            //         System.out.println("========================="+"=========================");
-            //         System.out.println("\tChecking ........");
-            //         System.out.println("========================="+"=========================");
+            case 2:
+                    System.out.println("========================="+"=========================");
+                    System.out.println("\tChecking ........");
+                    System.out.println("========================="+"=========================");
 
-            //         System.out.print("Enter the name of the Student you want to search: ");
-            //         String check = input.next();
+                    System.out.print("Enter the name of the Student you want to search: ");
+                    String check = input.next();
               
-            //         //for loop to check the ArrayList for the Student
-            //         for(int a=0; a<studentsList.size(); a++)
-            //         {
-            //           Student getStudentInfo = studentsList.get(a);
-            //           if((check.toLowerCase()).equals(getStudentInfo.getName().toLowerCase()))
-            //           {
-            //             System.out.println("Student is present on the database");
-            //             System.out.println("Details of the Student");
-            //             System.out.println("Name: "+getStudentInfo.getName()+ " Age: "+getStudentInfo.getAge()+ " Year: "+getStudentInfo.getYear()+ " Student Number: "+getStudentInfo.getStudentNumber());
-            //           }
-            //         }
-            //         System.out.println("Record not found");
-            // break;
+                    //for loop to check the ArrayList for the Student
+                    for(int a=0; a<studentsList.size(); a++)
+                    {
+                      Student getStudentInfo = studentsList.get(a);
+                      if((check.toLowerCase()).equals(getStudentInfo.getName().toLowerCase()))
+                      {
+                        System.out.println("Student is present on the database");
+                        System.out.println("Details of the Student");
+                        System.out.println("Name: "+getStudentInfo.getName()+ " Age: "+getStudentInfo.getAge()+ " Year: "+getStudentInfo.getYear()+ " Student Number: "+getStudentInfo.getStudentNumber());
+                      }
+                    }
+                    System.out.println("Record not found");
+            break;
             // case 3:
             //         System.out.println("Enter student list number: "); //
             //         int serialNum = input.nextInt();
@@ -131,14 +151,28 @@ public class TestStudents {
             //         System.out.println("Updated Information");
             //         System.out.println("Name: "+stu.getName()+ " Age: "+stu.getAge()+ " Year: "+stu.getYear()+ " Student Number: "+stu.getStudentNumber());
             // break;
-            case 4:
-                    System.out.println("Thank You Bye!");
-                    System.exit(0);
-            break;
-            default:
-                    System.out.println("You have entered an incorrect value!");
-            break;
+        //     case 4:
+        //             System.out.println("Thank You Bye!");
+        //             System.exit(0);
+        //     break;
+        //     default:
+        //             System.out.println("You have entered an incorrect value!");
+        //     break;
+         }
+        //writing to the file
+        try{
+              FileWriter fileWrite = new FileWriter("C:\\Users\\Lihle\\Desktop\\MyCourses\\Favtutor\\7-Projects\\Student-Database\\src\\Databasedatabase.txt");
+              BufferedWriter buffWrite = new BufferedWriter(fileWrite);
+              for(int m=0; m<studentsList.size(); m++)
+              {
+                buffWrite.write(studentsList.get(m).toString());
+              }
+              buffWrite.flush();
+              buffWrite.close();
+        }catch(Exception e){
+              System.out.println("An error occured while trying to write to file");
         }
+
         System.out.print("Please enter 1 to continue or 3 to exit: ");
         status = input.nextInt();
         if(status == 3)
