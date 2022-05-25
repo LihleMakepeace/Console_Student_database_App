@@ -63,4 +63,9 @@ public class Student {
     {
         studentNumber = s;
     }
+    //Overiiding the toString method for writing readable text to text file
+    @Override
+    public String toString(){
+        return "Name: "+name+ "\tSurname: " +surname+ "\tAge: "+age+ "\tYear: "+year+ "\tStudent Number: "+studentNumber;
+    }
 }

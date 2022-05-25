@@ -9,13 +9,11 @@ package Database;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedWriter;
 import java.io.*;
 
 
-
-
 public class TestStudents {
+  
   
     public static void main(String[]args){
       //object of the class  
@@ -95,7 +93,6 @@ public class TestStudents {
                       Student studentInfo = new Student(name, surname, age, year, StudentNumber);
                       //adding tht information to the ArrayList
                       studentsList.add(studentInfo);
-                    
                     }
                     //display the entered information
                     for(int j=0; j<studentsList.size(); j++)
@@ -158,20 +155,22 @@ public class TestStudents {
         //     default:
         //             System.out.println("You have entered an incorrect value!");
         //     break;
-         }
+        }
+        
         //writing to the file
         try{
               FileWriter fileWrite = new FileWriter("C:\\Users\\Lihle\\Desktop\\MyCourses\\Favtutor\\7-Projects\\Student-Database\\src\\Databasedatabase.txt");
-              BufferedWriter buffWrite = new BufferedWriter(fileWrite);
+              PrintWriter buffWrite = new PrintWriter(fileWrite);
               for(int m=0; m<studentsList.size(); m++)
               {
                 buffWrite.write(studentsList.get(m).toString());
+                buffWrite.write("\n");
               }
               buffWrite.flush();
               buffWrite.close();
-        }catch(Exception e){
-              System.out.println("An error occured while trying to write to file");
-        }
+            }catch(Exception e){
+                                System.out.println("An error occured while trying to write to file");
+            }
 
         System.out.print("Please enter 1 to continue or 3 to exit: ");
         status = input.nextInt();
